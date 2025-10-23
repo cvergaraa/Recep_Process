@@ -15,7 +15,7 @@ if 'sensor_data' not in st.session_state:
     st.session_state.sensor_data = None
 
 def get_mqtt_message(broker, port, topic, client_id):
-    """Función para obtener un mensaje MQTT"""
+    """Función para obtener un mensaje MQTT """
     message_received = {"received": False, "payload": None}
     
     def on_message(client, userdata, message):
@@ -87,23 +87,23 @@ with st.expander('ℹ️ Información', expanded=False):
 st.divider()
 
 # Botón para obtener datos
-if st.button('🔄 Obtener Datos del Sensor', use_container_width=True):
-    with st.spinner('Conectando al broker y esperando datos...'):
+if st.button('Obtener Datos del Sensor', use_container_width=True):
+    with st.spinner('Conectando - Esperando datos...'):
         sensor_data = get_mqtt_message(broker, int(port), topic, client_id)
         st.session_state.sensor_data = sensor_data
 
 # Mostrar resultados
 if st.session_state.sensor_data:
     st.divider()
-    st.subheader('📊 Datos Recibidos')
+    st.subheader('Datos Recibidos')
     
     data = st.session_state.sensor_data
     
     # Verificar si hay error
     if isinstance(data, dict) and 'error' in data:
-        st.error(f"❌ Error de conexión: {data['error']}")
+        st.error(f"ERROR de conexion: {data['error']}")
     else:
-        st.success('✅ Datos recibidos correctamente')
+        st.success('Los datos se recibieron correctamente!')
         
         # Mostrar datos en formato JSON
         if isinstance(data, dict):
